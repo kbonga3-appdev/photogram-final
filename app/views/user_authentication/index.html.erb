@@ -1,8 +1,5 @@
  <body>
     
-
-
-
     <h1>List of users</h1>
 
 <table border="1">
@@ -41,7 +38,15 @@
             </form>
       </td>
       <td>
-        <a href="/">Show details</a>
+      <%= user.id %>
+    </td>
+      <td>
+ 
+          <a href="/users/<%= user.id %>">Show details</a>
+        <%= $userid = user.id %> 
+     
+      
+       
       </td>
     </tr>
     

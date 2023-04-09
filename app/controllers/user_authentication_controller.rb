@@ -4,16 +4,37 @@ class UserAuthenticationController < ApplicationController
 
   def index
     @users = User.all.order({ :username => :asc })
-
     render({ :template => "user_authentication/index.html.erb" })
   end
 
   def users
     @users = User.all.order({ :username => :asc })
-
     render({ :template => "user_authentication/users.html.erb" })
   end
 
+  def show
+    # the_id = params.fetch("path_id")
+    # matching_actors = Actor.where({ :id => the_id })
+    # @the_actor = matching_actors.at(0)
+
+
+    #  the_id = params.fetch("path_id")
+    #  the_ids = $userid.to_i
+    # matching_user = User.where({ :id => the_ids })
+    # @the_user = matching_user.at(0)
+    # @user = matching_user
+    # @id = the_id
+    # @w = the_ids
+
+   the_id = params.fetch("path_id")
+   matching_user = User.where({ :id => the_id })
+   @the_user = matching_user.at(0)
+   @user = matching_user
+   @id = the_id
+  #  @w = the_ids
+
+    render({ :template => "user_authentication/user_details.html.erb" })
+  end
 
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })
