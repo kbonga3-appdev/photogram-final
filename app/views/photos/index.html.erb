@@ -6,6 +6,8 @@
   </div>
 </div>
 
+
+<!--
 <hr>
 
 <div>
@@ -62,7 +64,21 @@
   </div>
 </div>
 
+
+-->
+
+<form action="/insert_photo" method="post" enctype="multipart/form-data">
+  <label for="browser_input">Image</label>
+  <input id="browser_input" type="file" name="query_image" placeholder="Enter a URL for the image...">
+
+  <label for="browser_caption">Caption</label>
+  <textarea id="browser_caption" name="query_caption" placeholder="Enter a caption for the photo..."></textarea>
+
+  <button>Add photo</button>
+</form>
+
 <hr>
+
 <div>
   <div>
     <table border="1">
@@ -146,5 +162,3 @@
     </table>
   </div>
 </div>
-
-<hr>
