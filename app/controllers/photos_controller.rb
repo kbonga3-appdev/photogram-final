@@ -9,10 +9,10 @@ class PhotosController < ApplicationController
 
   def show
     the_id = params.fetch("path_id")
-
     matching_photos = Photo.where({ :id => the_id })
-
     @the_photo = matching_photos.at(0)
+
+   
 
     render({ :template => "photos/show.html.erb" })
   end
@@ -21,8 +21,10 @@ class PhotosController < ApplicationController
     the_photo = Photo.new
     the_photo.caption = params.fetch("query_caption")
     # the_photo.comments_count = params.fetch("query_comments_count")
+    the_photo.comments_count = 0
     the_photo.image = params.fetch("query_image")
     # the_photo.likes_count = params.fetch("query_likes_count")
+    the_photo.likes_count = 0
     the_photo.owner_id = session.fetch(:user_id)
 
     if the_photo.valid?
@@ -57,6 +59,8 @@ class PhotosController < ApplicationController
 
     the_photo.destroy
 
-    redirect_to("/photos", { :notice => "Photo deleted successfully."} )
+    # redirect_to("/photos/#{the_photo.id}", { :notice => "Photo deleted successfully."} )
+    # render({ :template => "/photos/<%= the_id %>" })
+    redirect_to("/photos", { :notice => "Photo deleted successfully." })
   end
 end

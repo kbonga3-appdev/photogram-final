@@ -5,20 +5,7 @@
     </h1>
 
     <div>
-    <!--
-      <div>
-        <a href="/photos">
-          Go back
-        </a> 
-      </div>
-      
-      <div>
-        <a href="/delete_photo/<%= @the_photo.id %>">
-          Delete photo
-        </a>
-      </div>
-    </div>
-    -->
+   
      <dt>
         Image
       </dt>
@@ -68,14 +55,22 @@
   </dd>
 
   <dt>Add a fan</dt>
-  <dd>
 
+
+
+     <dd>
+      <a href="/delete_like/<%= @the_photo.id %>">
+        Unlike
+      </a>
+  </dd>
+   <%# else %>
     <form action="/insert_like" method="post">
-      <input type="hidden" value="777" name="query_photo_id">
+      <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
       <button>Like</button>
     </form>
   </dd>
-     
+ <%# end %>
+
 
 
   <dt>Edit photo</dt>
@@ -91,10 +86,10 @@
     </form>
   </dd>
 
-  <dt>Delete photo</dt>
-  <dd>
-    <a href="/delete_photo/951">
-      Delete this photo
+  <dt>Delete photo <%= @the_photo.id %></dt>
+  <dd>                         
+    <a href="/delete_photo/<%=@the_photo.id%>">
+      Delete this photo 
     </a>
   </dd>
 </dl>
@@ -118,136 +113,38 @@
 
 <h2>Comments</h2>
 
-<table>
+
+
+<table class="table table-striped">
   <tr>
     <th>Commenter</th>
     <th>Comment</th>
     <th>Posted</th>
   </tr>
 
-    <tr>
-      <td>
-        roselee
-      </td>
+  <%  @the_photo.comments.each do |comment| %>
+  <tr>
+    <td>
+      <%= comment.commenter.username %>
+    </td>
 
-      <td>
-        Know how to listen, and you will profit even from those who talk badly.
-      </td>
+    <td>
+      <%= comment.body %>
+    </td>
 
-      <td>
-        almost 4 years ago
-      </td>
-    </tr>  
-    <tr>
-      <td>
-        diego
-      </td>
-
-      <td>
-        The mind is not a vessel to be filled but a fire to be kindled.
-      </td>
-
-      <td>
-        almost 4 years ago
-      </td>
-    </tr>  
-    <tr>
-      <td>
-        trina
-      </td>
-
-      <td>
-        It is impossible to begin to learn that which one thinks one already knows.
-      </td>
-
-      <td>
-        almost 4 years ago
-      </td>
-    </tr>  
-    <tr>
-      <td>
-        augustine
-      </td>
-
-      <td>
-        Only the educated are free.
-      </td>
-
-      <td>
-        almost 4 years ago
-      </td>
-    </tr>  
-    <tr>
-      <td>
-        galen
-      </td>
-
-      <td>
-        Most people would rather give than get affection.
-      </td>
-
-      <td>
-        almost 4 years ago
-      </td>
-    </tr>  
-    <tr>
-      <td>
-        anisa
-      </td>
-
-      <td>
-        There was never a genius without a tincture of madness.
-      </td>
-
-      <td>
-        almost 4 years ago
-      </td>
-    </tr>  
-    <tr>
-      <td>
-        jolie
-      </td>
-
-      <td>
-        Beware the barrenness of a busy life.
-      </td>
-
-      <td>
-        almost 4 years ago
-      </td>
-    </tr>  
-    <tr>
-      <td>
-        galen
-      </td>
-
-      <td>
-        A few vices are sufficient to darken many virtues.
-      </td>
-
-      <td>
-        almost 4 years ago
-      </td>
-    </tr>  
-    <tr>
-      <td>
-        robin
-      </td>
-
-      <td>
-        The mind is not a vessel to be filled but a fire to be kindled.
-      </td>
-
-      <td>
-        almost 4 years ago
-      </td>
-    </tr>  
+    <td>
+      <%# comment.created_at %>
+       <%= time_ago_in_words(comment.updated_at) %> ago
+    </td>
+  </tr>
+  
+  <% end %>
 </table>
 
 <h3>Add a new comment</h3>
 
 <form action="/insert_comment" method="post">
-  <input type="hidden" value="777" name="query_photo_id">
+  <input type="hidden" value="<%= @the_photo.id %>" name="query_photo_id">
   
   <label for="browser_comment">Comment</label>
   <textarea id="browser_comment" name="query_body" placeholder="Enter a comment..."></textarea>
@@ -257,70 +154,3 @@
 
   </body>
 </html>
-
-
-
-
-
-<!--
-<hr>
-
-
-<div>
-  <div>
-    <h2>
-      Edit photo
-    </h2>
-
-    <form action="/modify_photo/<%= @the_photo.id %>"  method="post" >
-      <div>
-        <label for="caption_box">
-          Caption
-        </label>
-
-        <textarea id="caption_box" name="query_caption"><%= @the_photo.caption %></textarea>
-      </div>
-
-      <div>
-        <label for="comments_count_box">
-          Comments count
-        </label>
-
-        <input type="text" id="comments_count_box" name="query_comments_count" value="<%= @the_photo.comments_count %>">
-      </div>
-
-      <div>
-        <label for="image_box">
-          Image
-        </label>
-
-        <input type="text" id="image_box" name="query_image" value="<%= @the_photo.image %>">
-      </div>
-
-      <div>
-        <label for="likes_count_box">
-          Likes count
-        </label>
-
-        <input type="text" id="likes_count_box" name="query_likes_count" value="<%= @the_photo.likes_count %>">
-      </div>
-
-      <div>
-        <label for="owner_id_box">
-          Owner
-        </label>
-
-        <input type="text" id="owner_id_box" name="query_owner_id" value="<%= @the_photo.owner_id %>">
-      </div>
-
-      <button>
-        Update photo
-      </button>
-    </form>
-  </div>
-</div>
-
-<hr>
-
-
--->
