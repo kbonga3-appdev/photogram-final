@@ -9,5 +9,16 @@
 #  author_id  :integer
 #  photo_id   :integer
 #
+
 class Comment < ApplicationRecord
+  validates(:commenter, {:presence => true })
+  validates(:photo, {:presence => true })
+
+  def commenter
+    return User.where({ :id => self.author_id }).at(0)
+  end
+
+  def photo
+    return Photo.where({ :id => self.photo_id }).at(0)
+  end
 end
